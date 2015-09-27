@@ -1,0 +1,63 @@
+Character x Block Devices
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Char
+- write/read char by char (to or from device)
+- operate in blocking mode (todo os bytes são passados e processo fica aguardando até acabar de transferir todos os bytes.)
+- synchronous with operations
+- "tipo mais comum"
+
+Block
+- write/read block by block (to or from device)
+- CPU intensive, and operations take long time to complete, synchrounous with operations (usuário não precisa esperar a transferência.)
+
+Esquema
+~~~~~~~
+
+user_space -(1)-> device_file -(2)-> device_driver -(3)-> physical_device
+				------------ kernel space ----------------
+			
+
+(1) open, write, read, close
+(2) file operations - "file" object is create (fops) 
+
+
+Listando um divice file
+~~~~~~~~~~~~~~~~~~~~~~~
+
+root@user-VirtualBox:/dev# ls -la tty0 
+crw--w---- 1 root tty 4, 0 Jul 21 08:36 tty0
+---
+
+c - character
+r - read from
+w - write to
+4 - major number
+0 - minor number
+
+
+Criando um divice file
+~~~~~~~~~~~~~~~~~~~~~~
+
+mknod /dev/my_device_file c 900 1 
+
+c - character device file
+900 - major number (deve ser diferente, senão haverá conflito)
+
+Misc device driver
+~~~~~~~~~~~~~~~~~~
+
+Cria automaticamente o arquivo. Major number é o 10, e o minor number é escolhido aleatoriamente com a macro MISC_DYNAMIC_MINOR [2][3][4].
+
+Final
+~~~~~
+
+Utiliza o EFBIG (man 2 write) como erro para retorno.
+
+EFBIG - An  attempt was made to write a file that exceeds the implementation-defined maximum file size or the process's file size limit, or to write at a position past the maximum allowed offset.
+
+References
+[1] https://www.youtube.com/watch?v=hr-3rKA2Oxs&list=PL16941B715F5507C5&index=5
+[2] drivers/misc/pti.c
+[3] http://www.linux.it/~rubini/docs/misc/misc.html
+[4] http://www.slideshare.net/VandanaSalve/introduction-to-char-device-driver?ref=http://blog.naturalevent.fr/article61/linux-kernel-eudyptula-01

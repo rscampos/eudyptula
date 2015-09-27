@@ -1,0 +1,34 @@
+Dar uma olhada rápida nas referências a seguir. Referências obtidas em Documentation/SubmittingPatches	
+
+http://www.ozlabs.org/~akpm/stuff/tpp.txt
+http://linux.yyz.us/patch-format.html
+
+[url:http://www.linuxchix.org/content/courses/kernel_hacking/lesson9
+] - básico sobre patch e diff
+Referencia que ensina de forma rápida a usar os comandos 'diff' e 'patch'.
+
+[url:http://linux.koolsolutions.com/2011/02/26/howto-create-and-submit-your-first-linux-kernel-patch/] - sobre git/patch
+# git config --add user.name "Raphael Campos"
+# git config --add user.email "raphaelcampos.rp@gmail.com"
+# git branch task03	-- cria um novo branch que irá conter as alterações
+# git checkout task03	-- muda para este branch
+# git branch		-- lista para ver se esta no branch correta
+... realiza as alterações necessárias ...
+# git commit -a
+... comentar sobre o patch: linha 1 será o subject, linha em branco, linha 2 será a descrição.
+# git diff 		-- verificar alteração antes de criar o patch
+# git format-patch -s -n master..task03 -- criar um patch e salva no ./ baseado nas alterações realizadas.
+# scripts/checkpatch.pl 0001-x86-Fix-reboot-problem-on-VersaLogic-Menlow-boards.patch
+
+# make M=drivers/staging/comedi/	-- compilando os arquivos de um dir especifico. No qual o arquivo foi alterado
+
+# git log	-- mostra as alterações
+# git show 	-- mostra o patch.
+#./scripts/get_maintainer.pl --file drivers/hid/hid-ezkey.c 	-- mostra os manteners.
+# git blame drivers/hid/hid-ezkey.c
+# git show f425458e
+
+Referência muito boa sobre o assunto. Tudo sobre patch.
+https://www.youtube.com/watch?v=LLBrBBImJt4
+
+Ponto de partida - Documentation/HOWTO

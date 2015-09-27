@@ -1,0 +1,29 @@
+From f60e32cd71c1f3018a42ed3429b16299f1e191b1 Mon Sep 17 00:00:00 2001
+From: Raphael Campos <raphaelcampos.rp@gmail.com>
+Date: Tue, 15 Jul 2014 08:10:17 -0300
+Subject: [PATCH 1/1] Makefile: Modification for Eudyptula Challenge task03
+
+EXTRAVERSION field modification to show "-eudyptula" in the version
+string.
+
+Signed-off-by: Raphael Campos <raphaelcampos.rp@gmail.com>
+---
+ Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile b/Makefile
+index f3c543d..28be911 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,7 +1,7 @@
+ VERSION = 3
+ PATCHLEVEL = 16
+ SUBLEVEL = 0
+-EXTRAVERSION = -rc5
++EXTRAVERSION = -eudyptula
+ NAME = Shuffling Zombie Juror
+ 
+ # *DOCUMENTATION*
+-- 
+1.8.3.2
+

@@ -1,0 +1,19 @@
+EuAlgumas coisas referentes a printk
+http://elinux.org/Debugging_by_printing
+
+Kernel CodingStyle, by greg@kroah.com at OLS 2002:
+http://www.kroah.com/linux/talks/ols_2002_kernel_codingstyle_talk/html/
+
+http://elinux.org/Debugging_by_printing
+
+
+Accoring with http://elinux.org/Debugging_by_printing, pr_devel and KERN_DEBUG are in the same level.
+
+
+https://www.kernel.org/doc/local/pr_debug.txt
+
+
+/media/user/dados/linux/scripts/checkpatch.pl --file --terse device.c
+
+--file	=> treat FILE as regular source file
+--terse	=> one line per report

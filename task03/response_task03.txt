@@ -1,0 +1,50 @@
+Hello, this is the proof...
+
+Linux mint (with kernel from task02) using real machine
+
+==[ OLD LINUX KERNEL
+
+user-pc ~ # uname -a
+Linux user-pc 3.16.0-rc4-00042-g4f440cd-dirty #2 SMP Thu Jul 10 13:07:00 BRT 2014 x86_64 x86_64 x86_64 GNU/Linux
+
+user-pc ~ # dmesg
+[    0.000000] Initializing cgroup subsys cpuset
+[    0.000000] Initializing cgroup subsys cpu
+[    0.000000] Initializing cgroup subsys cpuacct
+[    0.000000] Linux version 3.16.0-rc4-00042-g4f440cd-dirty (root@user-pc) (gcc version 4.8.1 (Ubuntu/Linaro 4.8.1-10ubuntu9) ) #2 SMP Thu Jul 10 13:07:00 BRT 2014
+
+user-pc ~ # ls -la /boot/ | grep `uname -r`
+-rw-r--r--  1 root root  3397420 Jul 10 13:09 System.map-3.16.0-rc4-00042-g4f440cd-dirty
+-rw-r--r--  1 root root   110645 Jul 10 13:09 config-3.16.0-rc4-00042-g4f440cd-dirty
+-rw-r--r--  1 root root 20405424 Jul 10 13:09 initrd.img-3.16.0-rc4-00042-g4f440cd-dirty
+-rw-r--r--  1 root root  5774704 Jul 10 13:09 vmlinuz-3.16.0-rc4-00042-g4f440cd-dirty
+
+==[ NEW LINUX KERNEL
+
+The kernel downloaded from kernel.org git, downloaded in July 15th.
+
+user-pc user # uname -a
+Linux user-pc 3.16.0-eudyptula-dirty #2 SMP Tue Jul 15 08:51:07 BRT 2014 x86_64 x86_64 x86_64 GNU/Linux
+
+user-pc ~ # dmesg
+[    0.000000] Initializing cgroup subsys cpuset
+[    0.000000] Initializing cgroup subsys cpu
+[    0.000000] Initializing cgroup subsys cpuacct
+[    0.000000] Linux version 3.16.0-eudyptula-dirty (root@user-pc) (gcc version 4.8.1 (Ubuntu/Linaro 4.8.1-10ubuntu9) ) #2 SMP Tue Jul 15 08:51:07 BRT 2014
+
+user-pc linux # ls -al /boot/ | grep `uname -r`
+-rw-r--r--  1 root root   110710 Jul 15 08:54 config-3.16.0-eudyptula-dirty
+-rw-r--r--  1 root root 20406948 Jul 15 08:55 initrd.img-3.16.0-eudyptula-dirty
+-rw-r--r--  1 root root  3397539 Jul 15 08:54 System.map-3.16.0-eudyptula-dirty
+-rw-r--r--  1 root root  5774160 Jul 15 08:54 vmlinuz-3.16.0-eudyptula-dirty
+
+
+==[ PATCH
+
+The patch was build using git, as show below:
+
+user-pc user # git branch task03
+user-pc user # git checkout task03
+... Makefile changes ...
+user-pc user # git commit -a
+user-pc user # git format-patch -s -n master..task03

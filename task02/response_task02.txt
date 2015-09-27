@@ -1,0 +1,41 @@
+Hello, this is the proof...
+
+Linux mint using real machines
+
+==[ OLD LINUX KERNEL
+
+user-pc ~ # uname -a
+Linux user-pc 3.11.0-12-generic #19-Ubuntu SMP Wed Oct 9 16:20:46 UTC 2013 x86_64 x86_64 x86_64 GNU/Linux
+
+user-pc ~ # dmesg
+[    0.000000] Initializing cgroup subsys cpuset
+[    0.000000] Initializing cgroup subsys cpu
+[    0.000000] Initializing cgroup subsys cpuacct
+[    0.000000] Linux version 3.11.0-12-generic (buildd@allspice) (gcc version 4.8.1 (Ubuntu/Linaro 4.8.1-10ubuntu7) ) #19-Ubuntu SMP Wed Oct 9 16:20:46 UTC 2013 (Ubuntu 3.11.0-12.19-generic 3.11.3)
+
+user-pc ~ # ls -la /boot/ | grep `uname -r`
+-rw-r--r--  1 root root  1005798 Out  9  2013 abi-3.11.0-12-generic
+-rw-r--r--  1 root root   163251 Out  9  2013 config-3.11.0-12-generic
+-rw-r--r--  1 root root 26635969 Jan 21 10:20 initrd.img-3.11.0-12-generic
+-rw-------  1 root root  3285893 Out  9  2013 System.map-3.11.0-12-generic
+-rw-r--r--  1 root root  5600016 Jan 20 11:51 vmlinuz-3.11.0-12-generic
+
+==[ NEW LINUX KERNEL
+
+The kernel downloaded from kernel.org git, downloaded in July 10th.
+
+user-pc user # uname -a
+Linux user-pc 3.16.0-rc4-00042-g4f440cd-dirty #2 SMP Thu Jul 10 13:07:00 BRT 2014 x86_64 x86_64 x86_64 GNU/Linux
+
+user-pc ~ # dmesg
+[    0.000000] Initializing cgroup subsys cpuset
+[    0.000000] Initializing cgroup subsys cpu
+[    0.000000] Initializing cgroup subsys cpuacct
+[    0.000000] Linux version 3.16.0-rc4-00042-g4f440cd-dirty (root@user-pc) (gcc version 4.8.1 (Ubuntu/Linaro 4.8.1-10ubuntu9) ) #2 SMP Thu Jul 10 13:07:00 BRT 2014
+
+user-pc user # ls -la /boot/ | grep `uname -r`
+-rw-r--r--  1 root root   110645 Jul 10 13:09 config-3.16.0-rc4-00042-g4f440cd-dirty
+-rw-r--r--  1 root root 20405424 Jul 10 13:09 initrd.img-3.16.0-rc4-00042-g4f440cd-dirty
+-rw-r--r--  1 root root  3397420 Jul 10 13:09 System.map-3.16.0-rc4-00042-g4f440cd-dirty
+-rw-r--r--  1 root root  5774704 Jul 10 13:09 vmlinuz-3.16.0-rc4-00042-g4f440cd-dirty
+

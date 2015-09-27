@@ -1,0 +1,113 @@
+About hotplug
+https://www.kernel.org/doc/local/hotplug2.html
+
+== Oque é hotplug
+The first serious hotplug mechanism in Linux was modules, because modules allow device drivers to be loaded after the kernel boots and unloaded again before shutdown. Modules meant that device drivers could probe for hardware present when the module was inserted, after the kernel booted[3]
+
+Segundo [2],
+The hotplug kernel subsystem dynamically handles the addition and removal of devices, by loading the appropriate drivers and by creating the corresponding device files (with the help of udevd). With modern hardware and virtualization, almost everything can be hotplugged: from the usual USB/PCMCIA/IEEE 1394 peripherals to SATA hard drives, but also the CPU and the memory.
+The kernel has a database that associates each device ID with the required driver. This database is used during boot to load all the drivers for the peripheral devices detected on the different buses, but also when an additional hotplug device is connected. Once the device is ready for use, a message is sent to udevd so it will be able to create the corresponding entry in /dev/.
+
+== Oque é utilizado para fazer o hotplug
+Segundo [1], não é mais utilizado o /sbin/hotplug, e sim o udev "as udev listens on a netlink socket instead these days." 
+
+Segundo [6], udev is a replacement for the Device File System (DevFS) starting with the Linux 2.6 kernel series
+
+== "netlink socket"
+"netlink socket" é utilizado para troca de dados entre kernel-space e user-space. It consists of a standard sockets-based interface for user space processes and an internal kernel API for kernel modules...[5]
+Exemplos sobre uma comunicação utilizando o "netlink socket" estão em netlink_user.c e netlink_kernel.c, onde a saída do dmesg é:
+
+[18350.849144] Entering: hello_init
+[18509.913919] Entering: hello_nl_recv_msg
+[18509.913923] Netlink received msg payload:Hello
+
+== Fluxo de execução do udev
+
+1) The udevd daemon is started. It listens to uevents from the driver core, which are sent whenever devices are inserted or removed.
+
+2) The udevd daemon reads and parses all the rules found in /etc/udev/rules.d/ and keeps them in memory.
+
+3) Whenever rules are added, removed or modified, udevd receives an inotify event and updates its ruleset in memory.
+
+4) When an event is received, udevd starts a process to:
+	4.1) try to match the event against udev rules,
+	4.2) create / remove device files,
+	4.3) and run programs (to load / remove a driver, to notify user space...) 
+
+== Checando eventos uevents
+Via udevadm
+$> udevadm monitor
+$> udevadm monitor ­­--env (informação completa)
+
+Via /var/log/daemon.log
+Para habilitar:
+udevadm control --log-priority=info 
+
+Para voltar ao padrão:
+udevadm control --log-priority=err
+
+== Verificando a database do udev e os rules carregadas
+http://www.jpichon.net/blog/2011/12/debugging-udev-rules/
+$> udevadm test a
+
+== utilizando udev
+https://www.youtube.com/watch?v=ohejhd0BmWg
+http://www.linuxquestions.org/questions/linux-networking-3/how-to-find-out-which-eth0-or-eth1-does-card-belongs-886537/
+
+== udev rules
+
+- executar script quando pendrive especifico for inserido
+SUBSYSTEM=="usb", ACTION=="add" , ATTRS{idVendor}=="8644", ATTRS{idProduct}=="800e", RUN="/home/user/Desktop/exec.sh"
+
+- executar script quando keyboard é inserido
+SUBSYSTEM=="usb", ACTION=="add" ATTRS{bInterfaceClass}=="03",ATTRS{bInterfaceProtocol}=="01", RUN="/home/user/Desktop/exec.sh"
+
+== solucionando o problema com o remove do udev
+http://www.linuxquestions.org/questions/linux-desktop-74/udev-not-doing-remove-rules-841733/
+
+== Ler referências para finalizar
+Boas referências
+http://www.opensourceforu.com/2011/10/usb-drivers-in-linux-1/	
+http://www.opensourceforu.com/2011/11/usb-drivers-in-linux-2/
+
+== sysfs
+
+Ao colocar um módulo usb por exemplo, o mesmo se encontra em:
+/sys/bus/usb/drivers/"gotemp"
+
+Dentro "gotemp", há o link para esta interface "2-1:1.0" (é onde esta binded nosso driver). Se voltarmos um diretório ".../usb2/2-1/" estaremos no diretório "device" onde temos todas as informações sobre o device.
+
+== Device model
+http://bravegnu.org/device-model/device-model.html
+
+**
+http://superuser.com/questions/249064/udev-rule-to-auto-load-keyboard-layout-when-usb-keyboard-plugged-in
+https://bbs.archlinux.org/viewtopic.php?id=180079
+http://matthias.vallentin.net/blog/2007/04/writing-a-linux-kernel-driver-for-an-unknown-usb-device/
+
+*
+http://www.linux-usb.org/USB-guide/x194.html
+http://www.linux.it/~rubini/docs/usb/
+https://www.linux-magazine.com/w3/issue/53/USB_Hotplugging.pdf
+
+[1] http://lists.kernelnewbies.org/pipermail/kernelnewbies/2014-March/010103.html
+[2] http://debian-handbook.info/browse/stable/sect.hotplug.html
+[3] https://www.kernel.org/doc/local/hotplug2.html
+[4] http://free-electrons.com/doc/udev.pdf
+[5] http://man7.org/linux/man-pages/man7/netlink.7.html
+[6] https://wiki.debian.org/udev
+
+=========================================
+=============== PARTE 2 =================
+=========================================
+Depois de solicitar ajuda 
+Hint - Ler usb/hutplug.txt
+
+Inicio:
+http://stackoverflow.com/questions/22777644/detecting-the-presence-of-a-device-when-its-hot-plugged-in-linux/22777951#22777951
+
+Referência que esclareceu o assunto:
+http://www.linux-mag.com/id/2617/
+
+Outra referência citada, mas não lida:
+http://www.linuxjournal.com/node/5604/print

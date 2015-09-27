@@ -1,0 +1,49 @@
+Hello, this is the proof...
+
+Linux mint with kernel linux-next using real machines.
+
+==[ KERNEL LINUX-NEXT
+
+The kernel was downloaded from kernel.org git in September 22th.
+
+user@user-pc ~ $ uname -a
+Linux user-pc 4.3.0-rc2-next-20150922 #1 SMP Wed Sep 23 00:30:50 BRT 2015 x86_64 x86_64 x86_64 GNU/Linux
+
+user-pc ~ # dmesg
+[    0.000000] Initializing cgroup subsys cpuset
+[    0.000000] Initializing cgroup subsys cpu
+[    0.000000] Initializing cgroup subsys cpuacct
+[    0.000000] Linux version 4.3.0-rc2-next-20150922 (root@user-pc) (gcc version 4.8.4 (Ubuntu 4.8.4-2ubuntu1~14.04) ) #1 SMP Wed Sep 23 00:30:50 BRT 2015
+[    0.000000] Command line: BOOT_IMAGE=/boot/vmlinuz-4.3.0-rc2-next-20150922 root=UUID=ce19c095-62a1-4feb-9b8f-f4a5aa8a5c76 ro quiet splash vt.handoff=7
+
+user@user-pc ~ $ ls -la /boot/ | grep `uname -r`
+-rw-r--r--  1 root root  3644581 Sep 23 08:02 System.map-4.3.0-rc2-next-20150922
+-rw-r--r--  1 root root   126823 Sep 23 08:02 config-4.3.0-rc2-next-20150922
+-rw-r--r--  1 root root 26193552 Sep 23 08:02 initrd.img-4.3.0-rc2-next-20150922
+-rw-r--r--  1 root root  6053120 Sep 23 08:02 vmlinuz-4.3.0-rc2-next-20150922
+
+==[ REFERENCES
+
+I've follow [1] in order to install linux-next. In short, follow these steps:
+
+1) Clone linux repository
+git clone https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+
+2) Add remote branch for linux-next:
+cd linux
+git remote add linux-next https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
+
+3) Fetch linux-next plus tags
+git fetch linux-next
+git fetch --tags linux-next
+
+4) Update from remote branch  
+git checkout master
+git remote update
+
+6) Create a local branch based on the linux-next (next-20140625):
+git checkout -b next_22 next-20140625
+
+--
+[1] https://www.kernel.org/doc/man-pages/linux-next.html
+

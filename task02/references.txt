@@ -1,0 +1,20 @@
+'make menuconfig' - menu para configuração do .config antes de compilar o kernel.
+apt-get install libncurses5 ncurses (ou libncurses5-dev)
+
+Sobre algumas configurações do kernel
+http://www.tldp.org/HOWTO/SCSI-2.4-HOWTO/kconfig.html
+
+Instalação completa []
+
+0) git clone git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
+1) make localmodconfig - configurações padrão e compila baseado nelas
+2) make
+3) make modules
+4) make modules_install
+5) make install
+
+Referencias:
+[1] http://www.wikihow.com/Compile-the-Linux-Kernel
+[2] http://www.cyberciti.biz/tips/compiling-linux-kernel-26.html
+[3] http://www.thegeekstuff.com/2013/06/compile-linux-kernel/
+[4] http://kernelnewbies.org/KernelBuild
