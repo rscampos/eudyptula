@@ -1,2 +1,2 @@
 # eudyptula
-Projeto criado em 28de53e3c164de0d17cdcbd929f603492eeffc1d
+Store eudyptula challenges (must be private).
