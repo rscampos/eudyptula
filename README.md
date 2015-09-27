@@ -2,10 +2,5 @@
 Store eudyptula challenges (must be private).
 
 # TODO
-- [ ] Organizar todos os arquivos, ex:
+- [ ] Organizar todos os arquivos.
 .
-+-- task01/
-|       +-- task01.txt
-|       +-- email_response
-|       +-- source.c
-|       +-- references
