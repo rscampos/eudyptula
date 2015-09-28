@@ -65,6 +65,8 @@ static int driver_entry(void)
 		return ERR_PTR(-ENOMEM);
 
 	pr_info("driver_entry - test patch!\n");
+
+	pr_info("driver_entry - test patch2!\n");
 	
 	pr_info("driver_entry!\n");
 	return 0;
