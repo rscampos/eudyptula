@@ -3,11 +3,12 @@
 #include<fcntl.h>
 #include <string.h>
 
-#define DEVICE "/sys/kernel/debug/eudyptula/id"
+#define DEVICE "/sys/kernel/debug/eudyptula/jiffies"
 
 int main(int argc, char **argv){
-        int size, fd,  ret;
-        char ch, write_buf[100], read_buf[100];
+        int size, fd,  ret, read_buf3=33;
+	unsigned int read_buf2;
+        char ch, write_buf[100], read_buf[4];
 	
 	/* open for read/write */
         fd = open(DEVICE, O_RDWR); 
@@ -32,7 +33,7 @@ int main(int argc, char **argv){
                 case 'r':
                         ret = read(fd, read_buf, size);
                         printf("[+] Read's return :%d\n", ret);
-                        printf("[+] ID :%s\n",read_buf);
+                        printf("[+] ID : [0x%x] %s\n", read_buf, read_buf);
                         break;
                 default:
                         printf("Cmd not recognized\n");
