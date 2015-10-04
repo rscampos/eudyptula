@@ -50,11 +50,19 @@ ssize_t device_write(struct file *filp,
 ssize_t device_read_jiffies(struct file *filp,
                     char *bufStoreData, size_t bufCount, loff_t *curOffset)
 {
-//	unsigned long start = jiffies;
+	int ret;
+	unsigned long start = jiffies;
 	//static const int start = 6699;
+	pr_info("[Jiffies:0x%x %d]\n", start, sizeof(start));
+	pr_info("[Buffer:0x%x &0x%x]\n", bufStoreData, &bufStoreData);
+	pr_info("\t[Buffer:0x%x 0x%x 0x%x 0x%x]\n", *bufStoreData, *bufStoreData+1, *bufStoreData+2, *bufStoreData+3);
 	pr_info("[User:0x%x] (0x%x) [size:%d]\n", bufStoreData, temp, strlen(temp));	
-        return simple_read_from_buffer(bufStoreData, bufCount, curOffset,
-                                       temp, strlen(temp));
+        ret = simple_read_from_buffer(bufStoreData, bufCount, curOffset,
+                                       start, sizeof(start));
+	pr_info("[Buffer:0x%x &0x%x]\n", bufStoreData, &bufStoreData);
+	pr_info("\t[Buffer:0x%x 0x%x 0x%x 0x%x]\n", *bufStoreData, *bufStoreData+1, *bufStoreData+2, *bufStoreData+3);
+
+	return ret;
 }
 
 /* Handles for the file 'foo' */
@@ -87,7 +95,7 @@ ssize_t device_write_foo(struct file *filp,
 }
 
 
-const struct file_operations fops = {
+const struct file_operations fops_id = {
         .write          = device_write,
         .read           = device_read
 };
@@ -116,7 +124,7 @@ static int driver_entry(void)
 	
 	
 	debugfs_file = debugfs_create_file(file_name_id, mode_id,
-					   debugfs_dir, &data, &fops);
+					   debugfs_dir, &data, &fops_id);
 	
 	if (!debugfs_file)
 		return ERR_PTR(-ENOMEM);

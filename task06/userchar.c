@@ -3,7 +3,7 @@
 #include<fcntl.h>
 #include <string.h>
 
-#define DEVICE "/dev/eudyptula"
+#define DEVICE "/sys/kernel/debug/eudyptula/id"
 
 int main(int argc, char **argv){
         int size, fd,  ret;

@@ -31,9 +31,11 @@ int main(int argc, char **argv){
                         printf("[+] Write's return :%d\n", ret);
                         break;
                 case 'r':
-                        ret = read(fd, read_buf, size);
+			printf("Antes: 0x%x 0x%x\n", read_buf3, &read_buf3);
+                        ret = read(fd, &read_buf3, size);
+			printf("Depois: 0x%x 0x%x\n", read_buf3, &read_buf3);
                         printf("[+] Read's return :%d\n", ret);
-                        printf("[+] ID : [0x%x] %s\n", read_buf, read_buf);
+                        //printf("[+] ID : [0x%x] %s\n", read_buf, read_buf);
                         break;
                 default:
                         printf("Cmd not recognized\n");
