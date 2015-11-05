@@ -7,20 +7,21 @@
 
 int main(int argc, char **argv){
         int size, fd,  ret, read_buf3=33;
-	unsigned int read_buf2;
+        unsigned int read_buf2;
         char ch, write_buf[100], read_buf[4];
-	
-	/* open for read/write */
-        fd = open(DEVICE, O_RDWR); 
+
+        /* open for read/write */
+        fd = open(DEVICE, O_RDWR);
         if(fd == -1){
                 printf("Error!\n");
+                printf("%s not found!\n", DEVICE);
                 exit(1);
         }
 
         printf("r = read from device\nw = write to device\nenter cmd: ");
         scanf("%c", &ch);
-        
-	printf("Size: ");
+
+        printf("Size: ");
         scanf("%d", &size);
 
         switch(ch){
@@ -31,9 +32,9 @@ int main(int argc, char **argv){
                         printf("[+] Write's return :%d\n", ret);
                         break;
                 case 'r':
-			printf("Antes: 0x%x 0x%x\n", read_buf3, &read_buf3);
+                        printf("Antes: 0x%x 0x%x\n", read_buf3, &read_buf3);
                         ret = read(fd, &read_buf3, size);
-			printf("Depois: 0x%x 0x%x\n", read_buf3, &read_buf3);
+                        printf("Depois: 0x%x 0x%x\n", read_buf3, &read_buf3);
                         printf("[+] Read's return :%d\n", ret);
                         //printf("[+] ID : [0x%x] %s\n", read_buf, read_buf);
                         break;
