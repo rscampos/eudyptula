@@ -11,6 +11,7 @@ int main(int argc, char **argv){
         char ch, write_buf[100], read_buf[4];
 
         /* open for read/write */
+
         fd = open(DEVICE, O_RDWR);
         if(fd == -1){
                 printf("Error!\n");
