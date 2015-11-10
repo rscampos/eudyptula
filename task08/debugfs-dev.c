@@ -9,8 +9,7 @@
 #include <linux/jiffies.h>
 #include <linux/slab.h>     /* kernel allocation        */
 #include <linux/gfp.h>      /* kernel allocation flags  */
-#include <linux/rwsem.h> /* read_lock/unlock         */
-#include <linux/delay.h>
+#include <linux/rwsem.h>    /* semephore routines       */
 
 #define BUF_LEN 13
 static const char dir_name[]		= "eudyptula";
@@ -94,7 +93,6 @@ ssize_t device_read_foo(struct file *filp,
         pr_info("[READ][BEFORE  ][LOCK: &0x%x[0x%x]]\n", &rw_sem, rw_sem);
 
         down_read(&rw_sem);
-        msleep(20000);
         pr_info("      [READ][INSIDE  ][LOCK: &0x%x[0x%x]]\n", &rw_sem, rw_sem);
         ret = simple_read_from_buffer(bufStoreData, bufCount, curOffset, block, PAGE_SIZE);
         up_read(&rw_sem);
@@ -129,7 +127,6 @@ ssize_t device_write_foo(struct file *filp,
         pr_info("[WRITE][BEFORE][LOCK:  &0x%x[0x%x]]\n", &rw_sem, rw_sem);
 
         down_write(&rw_sem);
-        msleep(20000);
         pr_info("      [WRITE][INSIDE  ][LOCK: &0x%x[0x%x]]\n", &rw_sem, rw_sem);
         ret = simple_write_to_buffer(block, bufCount, curOffset, bufSourceData,
                                      PAGE_SIZE);
