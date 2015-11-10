@@ -12,11 +12,11 @@
 #include <linux/rwsem.h>    /* semephore routines       */
 
 #define BUF_LEN 13
-static const char dir_name[]		= "eudyptula";
-static const char file_name_id[]	= "id";
-static const char file_name_foo[]	= "foo";
-static const char file_name_jiffies[]	= "jiffies";
-static const char euid[]		= "4f92b3aee379";
+static const char dir_name[]            = "eudyptula";
+static const char file_name_id[]        = "id";
+static const char file_name_foo[]       = "foo";
+static const char file_name_jiffies[]   = "jiffies";
+static const char euid[]                = "4f92b3aee379";
 static struct dentry *debugfs_dir;
 static unsigned char *block;
 struct rw_semaphore rw_sem;
