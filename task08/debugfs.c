@@ -8,9 +8,9 @@
 #include <linux/debugfs.h>
 
 #define BUF_LEN 13
-static const char dir_name[]		= "eudyptula";
-static const char file_name_id[]	= "id";
-static const char euid[]		= "4f92b3aee379";
+static const char dir_name[] = "eudyptula";
+static const char file_name_id[] = "id";
+static const char euid[] = "4f92b3aee379";
 static struct dentry *debugfs_dir;
 
 /* Handles for the file 'id' */
