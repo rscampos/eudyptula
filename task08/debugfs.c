@@ -6,13 +6,11 @@
 #include <linux/errno.h>
 #include <linux/init.h>
 #include <linux/debugfs.h>
-#include <linux/jiffies.h>
 
 #define BUF_LEN 13
 static const char dir_name[] = "eudyptula";
 static const char file_name_id[] = "id";
 static const char euid[] = "4f92b3aee379";
-static const char file_name_jiffies[] = "jiffies";
 static struct dentry *debugfs_dir;
 
 /* Handles for the file 'id' */
@@ -43,23 +41,6 @@ ssize_t device_write_id(struct file *filp,
 
 	return ret;
 }
-
-/* Handle for the file 'jiffies' */
-ssize_t device_read_jiffies(struct file *filp,
-			    char *bufStoreData, size_t bufCount,
-			    loff_t *curOffset)
-{
-	int ret;
-	unsigned long temp = jiffies;
-
-	return simple_read_from_buffer(bufStoreData, bufCount, curOffset,
-				       &temp, sizeof(temp));
-}
-
-const struct file_operations fops_id = {
-	.write	= device_write_id,
-	.read	= device_read_id
-};
 
 const struct file_operations fops_jiffies = {
 	.read	= device_read_jiffies
